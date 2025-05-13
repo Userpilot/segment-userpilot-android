@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">Userpilot</string>
+    <string name="copyright_userpilot">© 2024 Userpilot. All rights reserved.</string>
+
+    <!--  Main screen  -->
+    <string name="identify_title">User &amp; anonymous</string>
+    <string name="screens_title">Track screens</string>
+    <string name="events_title">Track events</string>
+    <string name="localization_title">Localization</string>
+    <string name="configuration_title">Configuration</string>
+
+    <!--  Identify  -->
+    <string name="enter_user_id">Enter user ID</string>
+    <string name="user_id">User ID</string>
+    <string name="identify">Identify</string>
+    <string name="identify_user">Identify User</string>
+    <string name="user_properties">User Properties</string>
+    <string name="user_company_properties">User Company Properties</string>
+    <string name="logout">Logout</string>
+    <string name="anonymous">Anonymous</string>
+
+    <!--  Screens  -->
+    <string name="screen_one">Screen One</string>
+    <string name="next">Next</string>
+    <string name="screen_two">Screen Two</string>
+    <string name="show_experience">Show experience</string>
+
+    <!--  Events screen  -->
+    <string name="events">Events</string>
+    <string name="track_event">Track event</string>
+    <string name="title">Title</string>
+    <string name="event_properties">Event properties</string>
+    <string name="row_number">Row #%s</string>
+    <string name="value">Value</string>
+    <string name="event_name">Event name</string>
+    <string name="enter_event_name">Enter event name</string>
+    <string name="custom_event">Advance event</string>
+
+    <!--  Add property  -->
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_property">Add Property</string>
+    <string name="hello_from_deep_link">Hello from Deep Link</string>
+
+    <!--  Localization  -->
+    <string name="save">Save</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="select_language">Select language</string>
+    <string name="localization">Localization</string>
+
+    <!--  Configuration  -->
+    <string name="enter_your_app_token" translatable="false">Enter your app token</string>
+    <string name="app_token" translatable="false">App token</string>
+
+    <!--  SDK events  -->
+    <string name="type">type</string>
+    <string name="properties">Properties</string>
+    <string name="empty_sdk_events">No events have been tracked yet</string>
+    <string name="events_log">Events log</string>
+</resources>
