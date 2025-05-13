@@ -1,8 +1,7 @@
 [versions]
 agp = "8.7.3"
-android = "1.13.0'"
-kotlin = "2.1.0"
-ksp = "2.1.0-1.0.29"
+kotlin = "1.8.22"
+ksp = "1.8.22-1.0.11"
 target_sdk_version = "35"
 compile_sdk_version = "35"
 gradle-maven-publish-plugin = "0.30.0"
@@ -15,8 +14,7 @@ constraint_layout = "2.2.0"
 benmanesversion = "0.51.0"
 detekt = "1.23.7"
 segment = "1.19.1"
-userpilot-android = "0.0.1-beta.11"
-serialization = "2.1.0"
+userpilot-android = "0.0.1-beta.12"
 junit = "4.13.2"
 mockk = "1.13.8"
 
@@ -55,4 +53,4 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "benmanesversio
 # ksp
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 # serialization
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization"}
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
