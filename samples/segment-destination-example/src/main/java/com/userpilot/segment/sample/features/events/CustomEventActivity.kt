@@ -10,7 +10,7 @@ import com.userpilot.segment.sample.base.adatper.PropertiesAdapterInterface
 import com.userpilot.segment.sample.databinding.ActivityCustomEventBinding
 import com.userpilot.segment.sample.dialogs.AddPropertyDialog
 import com.userpilot.segment.sample.extensions.getKeyValueByIndex
-import com.userpilot.segment.sample.managers.UserpilotManager
+import com.userpilot.segment.sample.managers.SegmentManager
 
 /**
  * Created by Motasem Hamed
@@ -38,7 +38,7 @@ class CustomEventActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        UserpilotManager.screen("custom events")
+        SegmentManager.screen("custom events")
     }
     //endregion
 
@@ -70,7 +70,7 @@ class CustomEventActivity : BaseActivity() {
         with(binding) {
             btnTrackEvent.setOnClickListener {
                 if (etEventName.text.toString().isNotEmpty()) {
-                    UserpilotManager.track(
+                    SegmentManager.track(
                         etEventName.text.toString(),
                         eventPropertiesAdapter.getProperties()
                     )

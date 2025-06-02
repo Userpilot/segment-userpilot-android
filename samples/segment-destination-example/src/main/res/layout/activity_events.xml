@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/top_content_margin"
         android:text="@string/events"
         android:fontFamily="sans-serif"
         android:textColor="@color/mine_shaft"

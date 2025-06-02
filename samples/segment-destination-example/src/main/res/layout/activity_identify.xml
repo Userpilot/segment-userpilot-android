@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/top_content_margin"
         android:text="@string/identify_user"
         android:textColor="@color/mine_shaft"
         android:textSize="15sp"
@@ -144,6 +144,38 @@
                 app:layout_constraintTop_toBottomOf="@+id/rvUserProperties" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvGroupIdTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/group_id"
+                android:textColor="@color/mine_shaft"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vSeparator" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilGroupId"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="6dp"
+                android:hint="@string/enter_group_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvGroupIdTitle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ettGroupId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvUserCompanyProperties"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,7 +186,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vSeparator" />
+                app:layout_constraintTop_toBottomOf="@+id/tilGroupId" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivAddUserCompanyProperty"
@@ -199,6 +231,23 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGroup"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/group"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnAnonymous"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -208,7 +257,7 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/bottom_content_margin"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="@string/anonymous"

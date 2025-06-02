@@ -1,7 +1,7 @@
 package com.userpilot.segment.sample
 
 import android.app.Application
-import com.userpilot.segment.sample.managers.UserpilotManager
+import com.userpilot.segment.sample.managers.SegmentManager
 
 /**
  * Created by Motasem Hamed
@@ -17,6 +17,6 @@ class UserpilotSample : Application() {
     }
 
     fun setupUserpilotSDK() {
-        UserpilotManager.initialize(this)
+        SegmentManager.initialize(this)
     }
 }

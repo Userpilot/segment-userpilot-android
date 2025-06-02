@@ -15,7 +15,7 @@ import com.userpilot.segment.sample.BuildConfig
  * on 14 Apr, 2025
  */
 
-object UserpilotManager {
+object SegmentManager {
 
     //region Properties
     /**
@@ -86,16 +86,24 @@ object UserpilotManager {
         analytics.identify(userID, properties)
     }
 
+    fun group(
+        groupID: String,
+        properties: Map<String, Any>? = null,
+    ) {
+        if (!isAnalyticsInitialized) return
+        analytics.group(groupID, properties)
+    }
+
     // Identify user
     fun anonymous() {
-        if (!isUserpilotInitialized) return
-        userpilotDestination.userpilot?.anonymous()
+        if (!isAnalyticsInitialized) return
+        analytics.identify()
     }
 
     // Logout user
     fun logout() {
-        if (!isUserpilotInitialized) return
-        userpilotDestination.userpilot?.logout()
+        if (!isAnalyticsInitialized) return
+        analytics.reset()
     }
 
     // Track screens

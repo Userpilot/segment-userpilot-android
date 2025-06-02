@@ -11,7 +11,7 @@ import com.userpilot.segment.sample.features.identify.IdentifyActivity
 import com.userpilot.segment.sample.features.main.adapter.OptionsAdapter
 import com.userpilot.segment.sample.features.main.models.Content
 import com.userpilot.segment.sample.features.screens.ScreenOneActivity
-import com.userpilot.segment.sample.managers.UserpilotManager
+import com.userpilot.segment.sample.managers.SegmentManager
 
 /**
  * Created by Motasem Hamed
@@ -44,7 +44,7 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        UserpilotManager.screen("main")
+        SegmentManager.screen("main")
     }
     //endregion
 

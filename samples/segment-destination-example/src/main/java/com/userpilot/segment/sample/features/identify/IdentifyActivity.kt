@@ -9,8 +9,12 @@ import com.userpilot.segment.sample.base.adatper.PropertiesAdapterInterface
 import com.userpilot.segment.sample.databinding.ActivityIdentifyBinding
 import com.userpilot.segment.sample.dialogs.AddPropertyDialog
 import com.userpilot.segment.sample.extensions.getKeyValueByIndex
-import com.userpilot.segment.sample.managers.UserpilotManager
+import com.userpilot.segment.sample.managers.SegmentManager
 import com.userpilot.segment.sample.utils.showAlertDialog
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 /**
  * Created by Motasem Hamed
@@ -47,7 +51,7 @@ class IdentifyActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        UserpilotManager.screen("identify")
+        SegmentManager.screen("identify")
     }
     //endregion
 
@@ -100,31 +104,35 @@ class IdentifyActivity : BaseActivity() {
         with(binding) {
             btnIdentify.setOnClickListener {
                 if (etUserId.text.toString().isNotEmpty()) {
-                    val userProperties = userPropertiesAdapter.getProperties()
-                    val companyProperties = userCompanyPropertiesAdapter.getProperties()
-
-                    val properties: HashMap<String, Any> = hashMapOf()
-                    properties.putAll(userProperties)
-
-                    // Only add "company" key if it's not empty
-                    if (companyProperties.isNotEmpty()) {
-                        properties["company"] = companyProperties
-                    }
-
-                    UserpilotManager.identify(
+                    val userProperties = userPropertiesAdapter.getProperties().toMutableMap()
+                    userProperties["createdAt"] = getIso8601Date()
+                    SegmentManager.identify(
                         etUserId.text.toString(),
-                        properties
+                        userProperties
                     )
                 } else {
                     showAlertDialog(this@IdentifyActivity, "Please insert User ID!")
                 }
             }
+
+            btnGroup.setOnClickListener {
+                if (ettGroupId.text.toString().isNotEmpty()) {
+                    val companyProperties = userCompanyPropertiesAdapter.getProperties().toMutableMap()
+                    companyProperties["createdAt"] = getIso8601Date()
+                    SegmentManager.group(
+                        ettGroupId.text.toString(),
+                        companyProperties
+                    )
+                } else {
+                    showAlertDialog(this@IdentifyActivity, "Please insert Group ID!")
+                }
+            }
             btnAnonymous.setOnClickListener {
-                UserpilotManager.anonymous()
+                SegmentManager.anonymous()
             }
             btnLogout.setOnClickListener {
                 showAlertDialog(this@IdentifyActivity, "User logged out successfully!")
-                UserpilotManager.logout()
+                SegmentManager.logout()
             }
 
             rvUserProperties.adapter = userPropertiesAdapter
@@ -134,6 +142,12 @@ class IdentifyActivity : BaseActivity() {
             ivAddUserCompanyProperty.setOnClickListener { addUserCompanyProperty() }
             ivBack.setOnClickListener { finish() }
         }
+    }
+
+    // Get the current date in ISO 8601 format (date only or full timestamp)
+    private fun getIso8601Date(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        return dateFormat.format(Date())
     }
     //endregion
 

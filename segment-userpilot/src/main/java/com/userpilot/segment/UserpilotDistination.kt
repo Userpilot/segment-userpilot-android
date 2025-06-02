@@ -18,6 +18,7 @@ import com.userpilot.UserpilotConfig
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.annotations.VisibleForTesting
+import org.json.JSONObject
 
 /**
  * A [DestinationPlugin] implementation for integrating the Userpilot SDK with Segment's Kotlin analytics library.
@@ -97,7 +98,7 @@ class UserpilotDestination(
      */
     override fun identify(payload: IdentifyEvent): BaseEvent {
         userpilot?.identify(
-            userID = payload.userId,
+            userID = payload.userId.ifEmpty { payload.anonymousId },
             properties = payload.traits.mapToUserpilotProperties()
         )
         return payload
@@ -107,10 +108,10 @@ class UserpilotDestination(
      * Handles `group` calls from Segment and forwards them to Userpilot.
      */
     override fun group(payload: GroupEvent): BaseEvent {
-        (userpilot?.settings()?.get("User") as? User)?.userID?.let {
+        payload.userId.ifEmpty { payload.anonymousId }.takeIf { it.isNotEmpty() }?.let { userId ->
             val properties = payload.traits.mapToUserpilotProperties() ?: emptyMap()
             val company = mapOf("id" to payload.groupId) + properties
-            userpilot?.identify(it, company = company)
+            userpilot?.identify(userId, company = company)
         }
         return payload
     }
@@ -139,7 +140,7 @@ class UserpilotDestination(
     }
 
     override fun reset() {
-        userpilot?.destroy()
+        userpilot?.logout()
     }
 
     /**
@@ -151,7 +152,11 @@ class UserpilotDestination(
         forEach { (key, value) ->
             val content = value.toContent()
             if (content != null && content.isAllowedPropertyType) {
-                map[key] = content
+                val mappedKey = when (key) {
+                    "createdAt" -> "created_at"
+                    else -> key
+                }
+                map[mappedKey] = content
             }
         }
         return if (map.isEmpty()) null else map
@@ -187,8 +192,4 @@ class UserpilotDestination(
 @Serializable
 data class UserpilotSettings(
     var token: String
-)
-
-internal data class User(
-    var userID: String = ""
 )

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.userpilot.segment.sample.base.BaseActivity
 import com.userpilot.segment.sample.databinding.ActivityScreenTwoBinding
-import com.userpilot.segment.sample.managers.UserpilotManager
+import com.userpilot.segment.sample.managers.SegmentManager
 
 /**
  * Created by Motasem Hamed
@@ -28,7 +28,7 @@ class ScreenTwoActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        UserpilotManager.screen("screen two")
+        SegmentManager.screen("screen two")
     }
     //endregion
 
