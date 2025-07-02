@@ -18,7 +18,6 @@ import com.userpilot.UserpilotConfig
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.annotations.VisibleForTesting
-import org.json.JSONObject
 
 /**
  * A [DestinationPlugin] implementation for integrating the Userpilot SDK with Segment's Kotlin analytics library.
@@ -97,10 +96,12 @@ class UserpilotDestination(
      * Handles `identify` calls from Segment and forwards them to Userpilot.
      */
     override fun identify(payload: IdentifyEvent): BaseEvent {
-        userpilot?.identify(
-            userID = payload.userId.ifEmpty { payload.anonymousId },
-            properties = payload.traits.mapToUserpilotProperties()
-        )
+        payload.userId.ifEmpty { payload.anonymousId }.takeIf { it.isNotEmpty() }?.let { userId ->
+            userpilot?.identify(
+                userId = userId,
+                properties = payload.traits.mapAndSanitizeToUserpilotProperties()
+            )
+        }
         return payload
     }
 
@@ -109,7 +110,7 @@ class UserpilotDestination(
      */
     override fun group(payload: GroupEvent): BaseEvent {
         payload.userId.ifEmpty { payload.anonymousId }.takeIf { it.isNotEmpty() }?.let { userId ->
-            val properties = payload.traits.mapToUserpilotProperties() ?: emptyMap()
+            val properties = payload.traits.mapAndSanitizeToUserpilotProperties() ?: emptyMap()
             val company = mapOf("id" to payload.groupId) + properties
             userpilot?.identify(userId, company = company)
         }
@@ -151,7 +152,18 @@ class UserpilotDestination(
         val map = hashMapOf<String, Any>()
         forEach { (key, value) ->
             val content = value.toContent()
-            if (content != null && content.isAllowedPropertyType) {
+            if (content != null) {
+                map[key] = content
+            }
+        }
+        return if (map.isEmpty()) null else map
+    }
+
+    private fun JsonObject.mapAndSanitizeToUserpilotProperties(): Map<String, Any>? {
+        val map = hashMapOf<String, Any>()
+        forEach { (key, value) ->
+            val content = value.toContent()
+            if (content != null) {
                 val mappedKey = when (key) {
                     "createdAt" -> "created_at"
                     else -> key

@@ -224,10 +224,8 @@ class UserpilotDestinationTest {
 
     @Test
     fun `test identify forwards user data to Userpilot`() {
-        // Set up the destination with a mock Userpilot instance
         destination.userpilot = userpilotMock
 
-        // Create identify event
         val traits = JsonObject(
             mapOf(
                 "name" to JsonPrimitive("Test User"),
@@ -240,13 +238,11 @@ class UserpilotDestinationTest {
             traits = traits
         )
 
-        // Process the identify event
         destination.identify(identifyEvent)
 
-        // Verify Userpilot.identify was called with correct parameters
         verify {
             userpilotMock.identify(
-                userID = "user-123",
+                userId = "user-123",
                 properties = match {
                     it["name"] == "Test User" && it["email"] == "test@example.com"
                 }
@@ -256,48 +252,37 @@ class UserpilotDestinationTest {
 
     @Test
     fun `test group forwards group data to Userpilot`() {
-        // Setup mock for User settings with userID
-        val userMock = mockk<User>()
-        val userSettingsMock = mockk<Map<String, Any>>()
-
-        every { userMock.userID } returns "user-123"
-        every { userSettingsMock["User"] } returns userMock
-        every { userpilotMock.settings() } returns userSettingsMock
-
-        // Set up the destination with a mock Userpilot instance
         destination.userpilot = userpilotMock
 
-        // Create group event
         val traits = JsonObject(
             mapOf(
                 "name" to JsonPrimitive("Test Company"),
                 "plan" to JsonPrimitive("enterprise")
             )
         )
-
         val groupEvent = GroupEvent(
             groupId = "company-123",
             traits = traits
-        )
+        ).apply {
+            userId = "user-123"
+        }
 
-        // Process the group event
         destination.group(groupEvent)
 
-        // Verify Userpilot.identify was called with correct parameters
         verify {
             userpilotMock.identify(
-                userID = "user-123",
+                userId = "user-123",
                 company = match {
                     it["id"] == "company-123" &&
-                        it["name"] == "Test Company" &&
-                        it["plan"] == "enterprise"
+                            it["name"] == "Test Company" &&
+                            it["plan"] == "enterprise"
                 }
             )
         }
     }
 
     @Test
-    fun `test group does nothing when user ID not available`() {
+    fun `test group does nothing when user ID or anonymous ID not available`() {
         // Setup mock with null/missing user settings
         val userSettingsMock = mockk<Map<String, Any>>()
         every { userSettingsMock["User"] } returns null
@@ -316,7 +301,9 @@ class UserpilotDestinationTest {
         val groupEvent = GroupEvent(
             groupId = "company-123",
             traits = traits
-        )
+        ).apply {
+            anonymousId = ""
+        }
 
         // Process the group event
         destination.group(groupEvent)
@@ -416,15 +403,14 @@ class UserpilotDestinationTest {
     }
 
     @Test
-    fun `test reset calls destroy on Userpilot`() {
-        // Set up the destination with a mock Userpilot instance
+    fun `test reset calls logout on Userpilot`() {
         destination.userpilot = userpilotMock
 
-        // Call reset
+        every { userpilotMock.logout() } just Runs
+
         destination.reset()
 
-        // Verify Userpilot.destroy was called
-        verify { userpilotMock.destroy() }
+        verify { userpilotMock.logout() }
     }
-//endregion
+    //endregion
 }

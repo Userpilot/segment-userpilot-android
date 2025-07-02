@@ -49,7 +49,7 @@ object SegmentManager {
             // optionally apply customizations using the UserpilotConfig here
             loggingEnabled = true
             navigationHandler = object : UserpilotNavigationHandler {
-                override suspend fun navigateTo(uri: Uri): Boolean {
+                override fun navigateTo(uri: Uri) {
                     if (uri.scheme?.contains("http") == true || uri.scheme?.contains("https") == true) {
                         context.startActivity(Intent(Intent.ACTION_VIEW, uri))
                     } else {
@@ -60,7 +60,6 @@ object SegmentManager {
                             context.startActivity(it)
                         }
                     }
-                    return true
                 }
             }
         }
