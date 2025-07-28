@@ -15,8 +15,8 @@ benmanesversion = "0.51.0"
 detekt = "1.23.7"
 junit = "4.13.2"
 mockk = "1.13.8"
-segment = "1.19.2"
-userpilot-android = "1.0.2"
+segment = "1.20.0"
+userpilot-android = "1.0.6"
 
 [libraries]
 # publishing
