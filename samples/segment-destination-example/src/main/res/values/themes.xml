@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Userpilot" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/royal_blue</item>
+        <item name="colorPrimaryVariant">@color/royal_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/purple_200</item>
+        <item name="colorSecondaryVariant">@color/purple_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <!--    Custom theme colors    -->
+        <item name="android:background">@color/white</item>
+        <item name="android:textViewStyle">@style/UserpilotTextViewStyle</item>
+
+        <!--    To ignore edge to edge in android 15    -->
+<!--        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>-->
+    </style>
+
+    <style name="UserpilotTextViewStyle" parent="ThemeOverlay.Material3.AutoCompleteTextView">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>
