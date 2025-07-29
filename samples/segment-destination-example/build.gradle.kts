@@ -16,7 +16,7 @@ android {
         versionName = UserpilotSampleCoordinates.APP_VERSION_NAME
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "SEGMENT_WRITE_KEY", "\"qHhRnDri9F4sX87VBmnsbIz4GGZ09IgJ\"")
+        buildConfigField("String", "SEGMENT_WRITE_KEY", "\"PLACEHOLDER_KEY\"")
     }
     buildFeatures {
         viewBinding = true
