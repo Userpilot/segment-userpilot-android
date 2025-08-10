@@ -13,7 +13,9 @@ object UserpilotLibraryCoordinates {
     private const val VERSION_MAJOR = "1"
     private const val VERSION_MINOR = "0"
     private const val VERSION_PATCH = "0"
-    const val LIBRARY_VERSION = "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
+    private const val VERSION_LABEL = "beta.1"
+
+    const val LIBRARY_VERSION = "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH-$VERSION_LABEL"
 
     // Publish info
     const val NAME = "Userpilot"
