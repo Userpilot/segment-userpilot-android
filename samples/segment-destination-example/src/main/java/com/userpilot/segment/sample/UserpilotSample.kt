@@ -16,7 +16,7 @@ class UserpilotSample : Application() {
         setupUserpilotSDK()
     }
 
-    fun setupUserpilotSDK() {
+    private fun setupUserpilotSDK() {
         SegmentManager.initialize(this)
     }
 }

@@ -1,7 +1,7 @@
 object UserpilotSampleCoordinates {
     const val APP_ID = "com.userpilot.segment.sample"
 
-    const val APP_VERSION_NAME = "1.0.0"
+    const val APP_VERSION_NAME = "1.0.2"
     const val APP_VERSION_CODE = 1
 }
 
@@ -13,7 +13,7 @@ object UserpilotLibraryCoordinates {
     private const val VERSION_MAJOR = "1"
     private const val VERSION_MINOR = "0"
     private const val VERSION_PATCH = "0"
-    private const val VERSION_LABEL = "beta.1"
+    private const val VERSION_LABEL = "beta.2"
 
     const val LIBRARY_VERSION = "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH-$VERSION_LABEL"
 
